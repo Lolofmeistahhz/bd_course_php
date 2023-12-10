@@ -5,6 +5,9 @@ include '../header.php';
 <?php
 include '../scripts/authorize/auth_check.php';
 ?>
+<?php
+include '../scripts/authorize/user_type_check.php';
+?>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <?php
@@ -31,7 +34,7 @@ include '../scripts/authorize/auth_check.php';
         </h1>
         <div class="row">
             <div class="col-md-6">
-                <label class="form-label" for="fullname">Ф.И.О. сотрудника</label>
+                <label class="form-label" for="fullname">Ф.И.О. официанта</label>
                 <input type="text" name="fullname" placeholder="Ф.И.О." class="form-control"
                     value="<?php echo $res_arr['fullname'] ?>" required="required" />
                 <label class="form-label" for="email">Email сотрудника</label>

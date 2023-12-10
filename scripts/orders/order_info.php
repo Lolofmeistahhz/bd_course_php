@@ -1,4 +1,5 @@
 <?php
+session_start();
 $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
 $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
 
@@ -27,6 +28,7 @@ $sql_order .= " LIMIT $art,$count";
 
 $result_orders = mysqli_query($link, $sql_order);
 
+
 if ($result_orders) {
     if (mysqli_num_rows($result_orders) > 0) {
         echo ' <table class="table table-striped text-center">'
@@ -46,11 +48,14 @@ if ($result_orders) {
                 "<td> {$row['order_date']} </td>" .
                 '<td><a data-bs-toggle="collapse" href="scripts/orders/order_view.php?order_id=' . $row['id'] . '"><span class="material-symbols-outlined">
                 visibility
-                </span></a></td>' .
-                '<td><a href="scripts/orders/order_delete.php?order_id=' . $row['id'] . ' "><span class="material-symbols-outlined">
-                delete
-                </span></a></td>' .
-                '</tr>';
+                </span></a></td>';
+            if ($_SESSION['user_type'] == 'admin') {
+                echo '<td><a href="scripts/orders/order_delete.php?order_id=' . $row['id'] . ' "><span class="material-symbols-outlined">
+                    delete
+                    </span></a></td>';
+            }
+
+            echo '</tr>';
             echo '<tr class="collapse" id="orderDetails' . $row['id'] . '">';
             echo '<td colspan="6">';
             echo '<div class="card card-body">';
@@ -60,13 +65,16 @@ if ($result_orders) {
         }
         echo '</tbody>';
         echo '</table>';
-        echo '<div class="d-flex justify-content-center">';
-        echo '<ul class="pagination">';
-        for ($i = 1; $i <= $str_pag; $i++) {
-            echo '<li class="page-item"><a class="page-link" href="orders.php?page=' . $i . '">' . $i . '</a></li>';
+
+        if (empty($filter) && empty($sort)) {
+            echo '<div class="d-flex justify-content-center">';
+            echo '<ul class="pagination">';
+            for ($i = 1; $i <= $str_pag; $i++) {
+                echo '<li class="page-item"><a class="page-link" href="orders.php?page=' . $i . '">' . $i . '</a></li>';
+            }
+            echo '</ul>';
+            echo '</div>';
         }
-        echo '</ul>';
-        echo '</div>';
 
     } else {
         echo "Нет данных для отображения.";
@@ -74,4 +82,3 @@ if ($result_orders) {
 } else {
     echo "Произошла ошибка: " . mysqli_error($link);
 }
-?>

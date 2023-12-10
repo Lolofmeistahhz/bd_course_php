@@ -8,6 +8,9 @@ include 'header.php';
 include 'scripts/authorize/auth_check.php';
 ?>
 <?php
+include 'scripts/authorize/user_type_check.php';
+?>
+<?php
 include 'navbar.php';
 ?>
 
@@ -38,6 +41,9 @@ include 'navbar.php';
                 <button class="btn btn-primary" onclick="location.href='forms/employee_form.php'">Добавить</button>
             </div>
         </div>
+        
+
+
         <?php
         include 'scripts/employee/employee_info.php';
         ?>

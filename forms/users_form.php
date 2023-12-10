@@ -5,6 +5,9 @@ include '../header.php';
 <?php
 include '../scripts/authorize/auth_check.php';
 ?>
+<?php
+include '../scripts/authorize/user_type_check.php';
+?>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <?php
@@ -24,17 +27,29 @@ include '../scripts/authorize/auth_check.php';
     ?>
     <form method="post" action="<?= $action ?>" class="form-outline mb-4">
         <h1 class="text-center">
-            <?php echo isset($hall_id) ? 'Редактирование учётной записи' : 'Добавление учётной записи' ?>
+            <?php echo isset($user_id) ? 'Редактирование учётной записи' : 'Добавление учётной записи' ?>
         </h1>
         <div class="row">
 
             <div class="col-md-12">
                 <label class="form-label" for="name">Логин</label>
                 <input type="text" name="login" placeholder="user_test001" class="form-control"
-                    value="<?php echo $res_arr['login'] ?>" required="required" />
+                    value="<?php echo isset($res_arr['login']) ? $res_arr['login'] : ''; ?>" required="required" />
+
                 <label class="form-label" for="description">Пароль</label>
                 <input type="password" placeholder="***" name="password_hash"
-                    value="<?php echo $res_arr['password_hash'] ?>" class="form-control" />
+                    value="<?php echo isset($res_arr['password_hash']) ? $res_arr['password_hash'] : ''; ?>"
+                    class="form-control" />
+
+                <label class="form-label" for="user_type">Тип учётной записи</label>
+                <select name="user_type" class="form-select form-control">
+                    <option value="user" <?php echo isset($res_arr['user_type']) && $res_arr['user_type'] == 'user' ? 'selected' : ''; ?>>
+                        Пользователь
+                    </option>
+                    <option value="admin" <?php echo isset($res_arr['user_type']) && $res_arr['user_type'] == 'admin' ? 'selected' : ''; ?>>
+                        Администратор
+                    </option>
+                </select>
             </div>
 
         </div>

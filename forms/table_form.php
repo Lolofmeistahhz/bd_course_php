@@ -5,6 +5,9 @@ include '../header.php';
 <?php
 include '../scripts/authorize/auth_check.php';
 ?>
+<?php
+include '../scripts/authorize/user_type_check.php';
+?>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <?php
@@ -27,7 +30,7 @@ include '../scripts/authorize/auth_check.php';
     ?>
     <form method="post" action="<?= $action ?>" class="form-outline mb-4">
         <h1 class="text-center">
-            <?php echo isset($emp_id) ? 'Редактирование столика' : 'Добавление столика' ?>
+            <?php echo isset($table_id) ? 'Редактирование столика' : 'Добавление столика' ?>
         </h1>
         <div class="row">
             <div class="col-md-12">

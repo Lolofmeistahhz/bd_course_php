@@ -14,6 +14,7 @@ $row = mysqli_fetch_row($res_count);
 $total = $row[0];
 $str_pag = ceil($total / $count);
 $sql_dishes = "SELECT * FROM Dishes";
+
 if (!empty($search) && empty($sort)) {
     $sql_dishes .= " WHERE name LIKE '%$search%'";
 } elseif (empty($search) && !empty($sort)) {
@@ -23,7 +24,6 @@ if (!empty($search) && empty($sort)) {
 }
 
 $sql_dishes .= " LIMIT $art,$count";
-
 
 $result_dishes = mysqli_query($link, $sql_dishes);
 
@@ -56,13 +56,16 @@ if ($result_dishes) {
         }
         echo '</tbody>';
         echo '</table>';
-        echo '<div class="d-flex justify-content-center">';
-        echo '<ul class="pagination">';
-        for ($i = 1; $i <= $str_pag; $i++) {
-            echo '<li class="page-item"><a class="page-link" href="dishes.php?page=' . $i . '">' . $i . '</a></li>';
+
+        if (empty($search)) {
+            echo '<div class="d-flex justify-content-center">';
+            echo '<ul class="pagination">';
+            for ($i = 1; $i <= $str_pag; $i++) {
+                echo '<li class="page-item"><a class="page-link" href="dishes.php?page=' . $i . '">' . $i . '</a></li>';
+            }
+            echo '</ul>';
+            echo '</div>';
         }
-        echo '</ul>';
-        echo '</div>';
 
     } else {
         echo "Нет данных для отображения.";

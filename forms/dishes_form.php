@@ -5,6 +5,9 @@ include '../header.php';
 <?php
 include '../scripts/authorize/auth_check.php';
 ?>
+<?php
+include '../scripts/authorize/user_type_check.php';
+?>
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <?php

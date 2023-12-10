@@ -8,22 +8,8 @@ include '../scripts/authorize/auth_check.php';
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <?php
-    // if (isset($_GET['order_id'])) {
-    //     $order_id = $_GET['order_id'];
-    //     $action = "../scripts/employee/employee_edit.php?emp_id=" . $emp_id;
-    //     $current_order = "SELECT Orders.id, Employee.fullname, Tables.number, Orders.order_date FROM Orders 
-    //     INNER JOIN Employee 
-    //     ON Employee.id = Orders.emp_id INNER JOIN Tables on Tables.id = Orders.table_id
-    //     WHERE Orders.id = $order_id";
-    //     $result = mysqli_query($link, $current_order);
-    //     if ($result) {
-    //         $res_arr = mysqli_fetch_array($result);
-    //     } else {
-    //         echo "Произошла ошибка : " . mysqli_error($link);
-    //     }
-    // } else {
+
     $action = "../scripts/orders/order_add.php";
-    // }
     ?>
     <form method="post" action="<?= $action ?>" class="form-outline mb-4">
         <h1 class="text-center">

@@ -8,6 +8,9 @@ include 'header.php';
 include 'scripts/authorize/auth_check.php';
 ?>
 <?php
+include 'scripts/authorize/user_type_check.php';
+?>
+<?php
 include 'navbar.php';
 ?>
 

@@ -4,7 +4,8 @@ include("../../connect.php");
 if (isset($_POST['add'])) {
     $fullname = $_POST['fullname'];
     $number = $_POST['number'];
-    $order_date = $_POST['order_date-time'];
+    // $order_date = $_POST['order_date-time'];
+    $order_date = date("Y-m-d H:i:s"); 
 
     $sql_order_add = "INSERT INTO Orders (emp_id, table_id, order_date)
     VALUES ('$fullname', '$number', '$order_date')";

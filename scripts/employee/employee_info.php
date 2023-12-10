@@ -4,8 +4,9 @@ $filter = isset($_POST['filter']) ? $_POST['filter'] : '';
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
-} else
+} else {
     $page = 1;
+}
 $count = 5;
 $art = ($page * $count) - $count;
 $res_count = mysqli_query($link, "SELECT COUNT(*) from Employee");
@@ -16,6 +17,7 @@ $sql_employee = "SELECT Employee.id, Employee.fullname, Positions.name, Employee
     FROM Employee 
     INNER JOIN Positions 
     ON Positions.id = Employee.pos_id";
+
 if (!empty($search) && empty($filter)) {
     $sql_employee .= " WHERE Employee.fullname LIKE '%$search%'";
 } elseif (empty($search) && !empty($filter)) {
@@ -25,8 +27,6 @@ if (!empty($search) && empty($filter)) {
 }
 
 $sql_employee .= " LIMIT $art,$count";
-
-
 
 $result_employee = mysqli_query($link, $sql_employee);
 
@@ -61,15 +61,16 @@ if ($result_employee) {
         }
         echo '</tbody>';
         echo '</table>';
-        echo '<div class="d-flex justify-content-center">';
-        echo '<ul class="pagination">';
-        for ($i = 1; $i <= $str_pag; $i++) {
-            echo '<li class="page-item"><a class="page-link" href="employee.php?page=' . $i . '">' . $i . '</a></li>';
+
+        if (empty($search)) {
+            echo '<div class="d-flex justify-content-center">';
+            echo '<ul class="pagination">';
+            for ($i = 1; $i <= $str_pag; $i++) {
+                echo '<li class="page-item"><a class="page-link" href="employee.php?page=' . $i . '">' . $i . '</a></li>';
+            }
+            echo '</ul>';
+            echo '</div>';
         }
-        echo '</ul>';
-        echo '</div>';
-
-
 
     } else {
         echo "Нет данных для отображения.";

@@ -14,16 +14,16 @@ $row = mysqli_fetch_row($res_count);
 $total = $row[0];
 $str_pag = ceil($total / $count);
 $sql_positions = "SELECT * FROM Positions";
+
 if (!empty($search) && empty($sort)) {
     $sql_positions .= " WHERE name LIKE '%$search%'";
 } elseif (empty($search) && !empty($sort)) {
-    $sql_positions .= " ORDER BY name $sort";
+    $sql_positions .= " ORDER BY salary $sort";
 } elseif (!empty($search) && !empty($sort)) {
-    $sql_positions .= " WHERE name LIKE '%$search%' ORDER BY name $sort";
+    $sql_positions .= " WHERE name LIKE '%$search%' ORDER BY salary $sort";
 }
 
 $sql_positions .= " LIMIT $art,$count";
-
 
 $result_postions = mysqli_query($link, $sql_positions);
 
@@ -52,15 +52,17 @@ if ($result_postions) {
         }
         echo '</tbody>';
         echo '</table>';
-        echo '<div class="d-flex justify-content-center">';
-        echo '<ul class="pagination">';
-        for ($i = 1; $i <= $str_pag; $i++) {
-            echo '<li class="page-item"><a class="page-link" href="positions.php?page=' . $i . '">' . $i . '</a></li>';
+
+        // Пагинация будет выводиться только если не применена фильтрация или сортировка
+        if (empty($search) && empty($sort)) {
+            echo '<div class="d-flex justify-content-center">';
+            echo '<ul class="pagination">';
+            for ($i = 1; $i <= $str_pag; $i++) {
+                echo '<li class="page-item"><a class="page-link" href="positions.php?page=' . $i . '">' . $i . '</a></li>';
+            }
+            echo '</ul>';
+            echo '</div>';
         }
-        echo '</ul>';
-        echo '</div>';
-
-
 
     } else {
         echo "Нет данных для отображения.";

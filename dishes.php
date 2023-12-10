@@ -39,6 +39,8 @@ include 'navbar.php';
                 <button class="btn btn-primary" onclick="location.href='forms/dishes_form.php'">Добавить</button>
             </div>
         </div>
+      
+
         <?php
         include 'scripts/dishes/dishes_info.php';
         ?>

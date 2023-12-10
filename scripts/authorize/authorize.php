@@ -6,7 +6,7 @@ if (isset($_POST['enter'])) {
 
     if (!empty($login) && !empty($password)) {
 
-        $sql = "SELECT `id`, `login`, `password_hash` FROM `Users` where `login`='$login'";
+        $sql = "SELECT * FROM `Users` where `login`='$login'";
         $result = mysqli_query($link, $sql);
 
         if ($result) {
@@ -18,7 +18,8 @@ if (isset($_POST['enter'])) {
                 if (password_verify($password, $stored_hash)) {
                     echo "Успешно авторизованы";
                     $_SESSION['user_id'] = $row['id'];
-                    header('Location: employee.php');
+                    $_SESSION['user_type'] = $row['user_type'];
+                    header('Location: orders.php');
                 } else {
                     echo "Ошибка авторизации";
                 }
